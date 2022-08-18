@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/HOLA', function () {
-    return view('welcome');
-});
+Route::get('/', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/dashboard', function () {
+    return view('user.table');
+})->middleware("auth:sanctum");
+
+
+Route::get('/register', [App\Http\Controllers\API\AuthController::class,'index'])->name('index');
+Route::get('/getUsers', [App\Http\Controllers\API\UserController::class,'index'])->name('user.table');
