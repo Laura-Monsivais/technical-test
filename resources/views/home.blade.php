@@ -3,11 +3,17 @@
 @section('title', 'Usuarios')
 
 @section('content')
-    <div class="container">
+<nav class="navbar navbar-light bg-dark justify-content-between">
+    <a href="/dashboard" class="navbar-brand" style="color: rgb(243, 243, 243)"><h4>PRUEBA TÉCNICA</h4></a>
+    <form class="form-inline">
+      <button class="btn btn-outline-light my-2 my-sm-0" id="btn_logout">Cerrar Sesión</button>
+    </form>
+  </nav>
+
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 style="text-align: center">Dashboard</h1>
-                <button id="btn_logout">Cerrar Sesión</button>
+                <h1 style="text-align: center; color:brown">Dashboard</h1>
                 <div class="card">
                     @yield('table')
                 </div>
