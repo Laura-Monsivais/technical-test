@@ -80,7 +80,8 @@
                 },
 
                 success: function(data) {
-                    window.location.href = "/dashboard";
+                    console.log(data);
+                    window.location.href = "/dashboard"; 
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);

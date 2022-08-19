@@ -3,7 +3,7 @@
 @section('table')
     <div class="container">
         <h1>Usuarios</h1>
-        <table class="table table-bordered data-table" id="data-table">
+        <table class="table table-bordered data-table" id="data-table" style="width: 100px">
             <thead>
                 <tr>
                     <th>No</th>
@@ -74,6 +74,7 @@
                     serverSide: true,
                     ajax: "{{ route('user.table') }}",
                     dom: 'Bfrtip',
+                    responsive: true,
                     buttons: [
                         'csv', 'pdf'
                     ],
@@ -145,6 +146,8 @@
 
             var formUsers = document.getElementById('formUsers');
             formUsers.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var table = $('#data-table').DataTable();
                 id = parseInt(fila.find('td:eq(0)').text());
                 $.ajax({
                     method: 'POST',
@@ -162,6 +165,8 @@
                     },
                     success: function(data) {
                         alert(data.message)
+                        $("#modalUpdate").modal("hide");
+                        table.ajax.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(jqXHR);
