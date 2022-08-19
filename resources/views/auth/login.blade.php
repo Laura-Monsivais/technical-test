@@ -51,7 +51,7 @@
                                     <button class="btn btn-primary" type='submit'>
                                         Login
                                     </button>
-                                    <a href="register" type="submit" class="btn btn-secondary">
+                                    <a href="/register" type="submit" class="btn btn-secondary">
                                         Registrate
                                     </a>
                                 </div>

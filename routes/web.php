@@ -22,5 +22,5 @@ Route::get('/dashboard', function () {
 })->middleware("auth:sanctum");
 
 
-Route::get('/register', [App\Http\Controllers\API\AuthController::class,'index'])->name('index');
+Route::get('/register', [App\Http\Controllers\API\AuthController::class,'index'])->name('register');
 Route::get('/getUsers', [App\Http\Controllers\API\UserController::class,'index'])->name('user.table');

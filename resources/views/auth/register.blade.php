@@ -1,23 +1,8 @@
-{{-- @extends('layouts.app')
+@extends('auth.layout')
 
-@section('content') --}}
-<!DOCTYPE html>
-<html lang="en">
+@section('title', 'Registro')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Prueba Técnica</title>
-    {{-- <link href="{{ public_path('css/app.css') }}" rel="stylesheet" type="text/css"> --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-    </style>
-</head>
-
-<body style="padding: 50px; background-image: url('https://fondosmil.com/fondo/35202.jpg')">
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -25,7 +10,7 @@
                     <div class="card-header">Registro</div>
 
                     <div class="card-body">
-                        <form method="GET" action="{{ route('register') }}" aria-label="Registro">
+                        <form id="formUpdate">
                             @csrf
 
                             <div class="form-group row">
@@ -33,8 +18,8 @@
 
                                 <div class="col-md-6">
                                     <input id="name" type="name"
-                                        class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                        name="name" required autofocus>
+                                        class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name"
+                                        required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -50,8 +35,8 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
-                                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                        name="email" value="{{ old('email') }}" required autofocus>
+                                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
+                                        value="{{ old('email') }}" required autofocus>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
@@ -82,7 +67,7 @@
                                     contraseña</label>
 
                                 <div class="col-md-6">
-                                    <input id="confirm_password" type="confirm_password"
+                                    <input id="confirm_password" type="password"
                                         class="form-control{{ $errors->has('confirm_password') ? ' is-invalid' : '' }}"
                                         name="confirm_password" required>
 
@@ -99,8 +84,8 @@
 
                                 <div class="col-md-6">
                                     <input id="phone" type="phone"
-                                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                        name="phone" required>
+                                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone"
+                                        min="10" required>
 
                                     @if ($errors->has('phone'))
                                         <span class="invalid-feedback" role="alert">
@@ -111,12 +96,30 @@
                             </div>
 
                             <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right">Tipo de persona</label>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Moral" id="person">
+                                        <label class="form-check-label" for="person">
+                                            Moral
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Fisica" id="person">
+                                    <label class="form-check-label" for="person">
+                                        Fisica
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="rfc" class="col-md-4 col-form-label text-md-right">RFC</label>
 
                                 <div class="col-md-6">
                                     <input id="rfc" type="rfc"
-                                        class="form-control{{ $errors->has('rfc') ? ' is-invalid' : '' }}"
-                                        name="rfc" required>
+                                        class="form-control{{ $errors->has('rfc') ? ' is-invalid' : '' }}" name="rfc"
+                                       required>
 
                                     @if ($errors->has('rfc'))
                                         <span class="invalid-feedback" role="alert">
@@ -143,8 +146,32 @@
             </div>
         </div>
     </div>
-    {{-- @endsection --}}
+    <script>
+        var formUpdate = document.getElementById('formUpdate');
+        formUpdate.addEventListener('submit', function(e) {
+            $.ajax({
+                method: 'PUT',
+                url: 'api/register/create',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    name: $("#name").val(),
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                    confirm_password: $("#confirm_password").val(),
+                    phone: $("#phone").val(),
+                    person: $("#person").val(),
+                    rfc: $("#rfc").val(),
+                },
+                success: function(data) {
+                    alert(data.message)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('Error: ' + jqXHR.responseJSON.message)
+                }
+            });
 
-</body>
-
-</html>
+        })
+    </script>
+@endsection
