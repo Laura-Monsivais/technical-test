@@ -29,7 +29,7 @@ class AuthController extends Controller
             return response()->json([
                 'error'     => false,
                 'message'   => 'Iniciaste sesión correctamente.',
-                'data'     => 'true'
+                'data'     => $request->user()->createToken($request->email)->plainTextToken
             ], 200);
         } else {
             return response()->json([
@@ -40,12 +40,21 @@ class AuthController extends Controller
         }
     }
 
+    public function currentUser(Request $request)
+    {
+        $data = [
+            "user_id" => Auth::user()->id,
+            "name" => Auth::user()->name,
+            "email" => Auth::user()->email
+        ];
+        return response()->json([$data
+        ], 200);
+    }
+
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();
     }
-
-
 
     public function Register(Request $request)
     {
@@ -55,7 +64,7 @@ class AuthController extends Controller
             'password'         => 'required',
             'confirm_password' => 'required|same:password',
             'phone'            => 'required|min:10',
-            'person'            => 'required',
+            'person'           => 'required',
             'rfc'              => 'required|min:12|max:13',
         ];
         $rfc = strlen($request->rfc);
@@ -67,7 +76,7 @@ class AuthController extends Controller
                 'message'   => 'El RFC para persona Moral es de 12 caracteres',
                 'data'      => '',
             ], 404);
-        }
+        }else
         if ($request->person === 'Fisica' && $rfc == 12) {
             return response()->json([
                 'error'     => true,

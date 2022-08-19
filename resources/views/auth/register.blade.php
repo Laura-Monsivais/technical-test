@@ -96,20 +96,12 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">Tipo de persona</label>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="Moral" id="person">
-                                        <label class="form-check-label" for="person">
-                                            Moral
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="Fisica" id="person">
-                                    <label class="form-check-label" for="person">
-                                        Fisica
-                                    </label>
+                                <div class="col-md-6">
+                                <select class="form-select" aria-label="Default select example" id="person">
+                                    <option selected>Tipo de persona</option>
+                                    <option value="Moral">Moral</option>
+                                    <option value="Fisica">Fisica</option>
+                                  </select>
                                 </div>
                             </div>
 

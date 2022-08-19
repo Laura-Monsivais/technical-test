@@ -24,3 +24,4 @@ Route::get('/dashboard', function () {
 
 Route::get('/register', [App\Http\Controllers\API\AuthController::class,'index'])->name('register');
 Route::get('/getUsers', [App\Http\Controllers\API\UserController::class,'index'])->name('user.table');
+Route::get('/showUsers/{id}', [App\Http\Controllers\API\UserController::class,'show']);
